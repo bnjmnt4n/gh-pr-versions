@@ -1,0 +1,98 @@
+query PullRequest(
+  $owner: String!
+  $name: String!
+  $pullRequestNumber: Int!
+  $endCursor: String
+) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $pullRequestNumber) {
+      number
+      title
+      state
+      createdAt
+      author {
+        login
+      }
+      isDraft
+      baseRefName
+      baseRefOid
+      headRepository {
+        nameWithOwner
+      }
+      headRefName
+      headRefOid
+
+      timelineItems(first: 100, after: $endCursor) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        totalCount
+        nodes {
+          __typename
+          ... on HeadRefForcePushedEvent {
+            beforeCommit {
+              oid
+              committedDate
+            }
+            afterCommit {
+              oid
+            }
+            actor {
+              login
+            }
+            createdAt
+          }
+          ... on BaseRefChangedEvent {
+            currentRefName
+            previousRefName
+            actor {
+              login
+            }
+            createdAt
+          }
+          ... on BaseRefForcePushedEvent {
+            beforeCommit {
+              oid
+            }
+            afterCommit {
+              oid
+            }
+            actor {
+              login
+            }
+            createdAt
+          }
+          ... on AutomaticBaseChangeSucceededEvent {
+            newBase
+            oldBase
+            actor {
+              login
+            }
+            createdAt
+          }
+          ... on PullRequestReview {
+            author {
+              login
+            }
+            state
+            createdAt
+          }
+          ... on IssueComment {
+            author {
+              login
+            }
+            createdAt
+          }
+          ... on PullRequestCommit {
+            commit {
+              oid
+              committedDate
+            }
+            url
+          }
+        }
+      }
+    }
+  }
+}

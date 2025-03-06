@@ -1,0 +1,5 @@
+node_modules/
+*.tsbuildinfo
+**/*.js
+__generated__/
+result

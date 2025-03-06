@@ -1,0 +1,43 @@
+{
+  "name": "gh-pr-versions",
+  "version": "0.0.0",
+  "description": "List and fetch different versions of a GitHub pull request.",
+  "bin": {
+    "gh-pr-versions": "bin/gh-pr-versions.js"
+  },
+  "files": [
+    "bin/**/*.js",
+    "src/**/*.js",
+    "resources/pull_request.graphql"
+  ],
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts",
+    "format": "prettier --write .",
+    "build": "tsc",
+    "prepublishOnly": "npm run codegen && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bnjmnt4n/gh-pr-versions.git"
+  },
+  "keywords": [
+    "github",
+    "pr",
+    "pull",
+    "request",
+    "patchset",
+    "changeset",
+    "version"
+  ],
+  "author": "Benjamin Tan <benjamin@dev.ofcr.se> (https://ofcr.se/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bnjmnt4n/gh-pr-versions/issues"
+  },
+  "homepage": "https://github.com/bnjmnt4n/gh-pr-versions#readme",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.5",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
